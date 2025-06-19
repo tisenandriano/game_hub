@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Game Hub</title>
+  <meta name="description" content="Simulate and track game controller inputs in a virtual Nintendo-style interface." />
+  <meta name="author" content="Tisen" />
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon"> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="site-header" role="banner">
+    <div class="container header-container">
+      <div class="brand-logo">
+        <span class="material-icons" aria-hidden="true">sports_esports</span>
+        <h1>Virtual Game Hub</h1>
+      </div>
+      <nav id="main-navigation" role="navigation" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="#home" aria-current="page">Home</a></li>
+          <li><a href="#controller">Controller</a></li>
+          <li><a href="#log">Logs</a></li>
+          <li><a href="#about">About</a></li>
+          <li><button id="theme-toggle" aria-label="Toggle theme"><span class="material-icons">dark_mode</span></button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main> <section id="home" class="hero-section" role="region" aria-label="Welcome area">
+      <div class="container hero-content">
+        <h2>Level Up Your Reflex</h2>
+        <p>Master game controller actions with this interactive virtual pad and real-time log system.</p>
+        <button id="start-controller" class="primary-btn" aria-label="Start Controller Simulation">
+          <span class="material-icons" aria-hidden="true">play_arrow</span>
+          Start Playing
+        </button>
+      </div>
+    </section>
+
+    <section id="controller" class="controller-section" role="region" aria-label="Gamepad Emulator">
+      <div class="container">
+        <h2>Controller Interface</h2>
+        <div class="controller-grid">
+          <div class="dpad" aria-label="Directional pad" role="group">
+            <button class="dpad-button" data-key="Up" aria-label="Move Up">⬆</button>
+            <button class="dpad-button" data-key="Left" aria-label="Move Left">⬅</button>
+            <button class="dpad-button" data-key="Down" aria-label="Move Down">⬇</button>
+            <button class="dpad-button" data-key="Right" aria-label="Move Right">➡</button>
+          </div>
+          <div class="action-buttons" aria-label="Action Buttons" role="group">
+            <button class="action-btn" data-key="A" aria-label="Press A">A</button>
+            <button class="action-btn" data-key="B" aria-label="Press B">B</button>
+            <button class="action-btn" data-key="X" aria-label="Press X">X</button>
+            <button class="action-btn" data-key="Y" aria-label="Press Y">Y</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="log" class="log-section" role="region" aria-label="User Interaction Logs">
+      <div class="container">
+        <h2>Live Action Log</h2>
+        <p>All of your keypresses and button interactions are recorded in real-time below.</p>
+        <ul id="action-log" role="log" aria-live="polite" aria-atomic="true" tabindex="0"></ul>
+        <button id="clear-log" class="secondary-btn" aria-label="Clear log history">
+          <span class="material-icons" aria-hidden="true">delete</span>
+          Clear Log
+        </button>
+      </div>
+    </section>
+
+    <section id="about" class="about-section" role="contentinfo" aria-label="About Virtual Game Hub">
+      <div class="container">
+        <h2>About This Project</h2>
+        <p>This web-based emulator is inspired by Gaming Console and is built for users to simulate controller input with accessibility and UX in mind. Great for learning, testing, and gamified experiences.</p>
+      </div>
+    </section>
+  </main> <footer id="site-footer" role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 Virtual Game Hub | Designed by Tisen</p>
+      <p>
+        <a href="https://github.com/tisenandriano/virtual-game-hub" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">GitHub Repository</a>
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

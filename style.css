@@ -1,0 +1,489 @@
+/* ==== Global Reset ==== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Define CSS Variables for theming */
+:root {
+  /* Dark Mode Variables */
+  --bg-gradient: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
+  --text-color-primary: #f5f5f5;
+  --text-color-secondary: #ccc;
+  --header-bg: rgba(255, 255, 255, 0.04);
+  --header-border: 1px solid rgba(255, 255, 255, 0.08);
+  --brand-color: #ff4e42;
+  --button-primary-bg: #ff4e42;
+  --button-primary-text: #fff;
+  --button-primary-shadow: rgba(255, 78, 66, 0.4);
+  --button-primary-hover-bg: #ff1a03;
+  --button-primary-hover-shadow: rgba(255, 78, 66, 0.6);
+  --button-secondary-border: 2px solid #ff4e42;
+  --button-secondary-text: #ff4e42;
+  --button-secondary-hover-bg: #ff4e42;
+  --button-secondary-hover-text: #fff;
+  --controller-card-bg: rgba(255, 255, 255, 0.06);
+  --controller-card-shadow: 0 0 20px rgba(255, 78, 66, 0.25);
+  --dpad-action-btn-bg: #ff4e42;
+  --dpad-action-btn-text: white;
+  --dpad-action-btn-shadow: rgba(255, 78, 66, 0.5);
+  --log-list-bg: rgba(255, 255, 255, 0.05);
+  --log-item-bg: rgba(255, 78, 66, 0.15);
+  --log-item-shadow: rgba(0,0,0,0.2);
+  --about-section-bg: linear-gradient(to right, #2c2c2c, #1a1a1a);
+  --footer-bg: #0a0a0a;
+  --footer-text: #888;
+  --footer-link-color: #ff4e42;
+  --toast-bg: #ff4e42; /* Default toast background */
+  --toast-text: white;
+
+  /* Toast specific colors */
+  --toast-info-bg: #2196f3;
+  --toast-success-bg: #4CAF50;
+  --toast-error-bg: #f44336;
+}
+
+/* Light Mode Variables (overrides for :root) */
+body.light-mode {
+  --bg-gradient: linear-gradient(to bottom, #fafafa, #e6e6e6);
+  --text-color-primary: #222;
+  --text-color-secondary: #555;
+  --header-bg: #fff;
+  --header-border: 1px solid #ddd;
+  --button-primary-bg: #222;
+  --button-primary-shadow: rgba(0, 0, 0, 0.2);
+  --button-primary-hover-bg: #000;
+  --button-primary-hover-shadow: rgba(0, 0, 0, 0.3);
+  --button-secondary-border: 2px solid #222;
+  --button-secondary-text: #222;
+  --button-secondary-hover-bg: #222;
+  --button-secondary-hover-text: white;
+  --controller-card-bg: #e8e8e8;
+  --controller-card-shadow: rgba(0, 0, 0, 0.1);
+  --dpad-action-btn-bg: #222;
+  --dpad-action-btn-text: #fff;
+  --dpad-action-btn-shadow: rgba(0, 0, 0, 0.3);
+  --log-list-bg: #e8e8e8;
+  --log-item-bg: rgba(0, 0, 0, 0.08);
+  --log-item-shadow: rgba(0,0,0,0.1);
+  --about-section-bg: linear-gradient(to right, #f9f9f9, #eee); /* Adjusted for light mode */
+  --footer-bg: #ddd;
+  --footer-text: #333;
+  --footer-link-color: #111;
+  --toast-bg: #333; /* Default toast background for light mode */
+  --toast-text: #fff;
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-color-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==== Reusable Layout ==== */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  padding: 60px 0;
+}
+
+h1, h2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+p {
+  color: var(--text-color-secondary);
+}
+
+/* ==== Header ==== */
+#site-header {
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--header-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--brand-color);
+  font-size: 1.5rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: var(--text-color-primary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover,
+.nav-list a[aria-current="page"] {
+  color: var(--brand-color);
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--brand-color);
+}
+body.light-mode #theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+
+/* ==== Hero ==== */
+.hero-section {
+  background: url('assets/game.jpg') no-repeat center center/cover;
+  text-align: center;
+  color: var(--text-color-primary); /* Uses primary text color */
+  padding: 120px 0;
+
+}
+
+/* Note: For light mode, you might need a different hero image or a solid background */
+body.light-mode .hero-section {
+    background: var(--header-bg); /* Use a light background instead of an image for simplicity in light mode */
+    color: var(--text-color-primary);
+}
+
+
+.hero-content h2 {
+  font-size: 3rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: var(--text-color-secondary); /* Ensure secondary text color for paragraph */
+}
+
+/* ==== Buttons ==== */
+.primary-btn, .secondary-btn {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  box-shadow: 0 4px 12px var(--button-primary-shadow);
+}
+
+.primary-btn:hover {
+  background: var(--button-primary-hover-bg);
+  box-shadow: 0 8px 20px var(--button-primary-hover-shadow);
+}
+
+.secondary-btn {
+  background: transparent;
+  border: var(--button-secondary-border);
+  color: var(--button-secondary-text);
+}
+
+.secondary-btn:hover {
+  background: var(--button-secondary-hover-bg);
+  color: var(--button-secondary-hover-text);
+}
+
+.secondary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==== Controller ==== */
+.controller-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.dpad, .action-buttons {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--controller-card-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px var(--controller-card-shadow);
+}
+
+.dpad {
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  grid-template-columns: 64px 64px 64px;
+  grid-template-rows: 64px 64px 64px;
+}
+
+.dpad-button[data-key="Up"] { grid-area: up; }
+.dpad-button[data-key="Down"] { grid-area: down; }
+.dpad-button[data-key="Left"] { grid-area: left; }
+.dpad-button[data-key="Right"] { grid-area: right; }
+
+.dpad-button, .action-btn {
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border: none;
+  color: var(--dpad-action-btn-text);
+  background: var(--dpad-action-btn-bg);
+  box-shadow: 0 6px 16px var(--dpad-action-btn-shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease; /* Faster transition for active state */
+}
+
+.dpad-button:hover,
+.action-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px var(--button-primary-hover-shadow); /* Reusing a variable for consistency */
+}
+
+.dpad-button.active,
+.action-btn.active {
+    transform: translateY(0) scale(0.95); /* Simulate a "press" effect */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3); /* Smaller, darker shadow when pressed */
+    background: var(--button-primary-hover-bg); /* Slightly darker when pressed */
+}
+body.light-mode .dpad-button.active,
+body.light-mode .action-btn.active {
+    background: var(--button-primary-hover-bg); /* Still darker version of light mode button */
+}
+
+
+.action-buttons {
+  grid-template-columns: repeat(2, 72px);
+  grid-template-rows: repeat(2, 72px);
+}
+
+/* ==== Logs ==== */
+.log-section ul {
+  list-style: none;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--log-list-bg);
+  scroll-behavior: smooth; /* For smoother scrolling via JS */
+}
+
+.log-section ul li {
+  background: var(--log-item-bg);
+  margin-bottom: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color-primary);
+  box-shadow: 0 3px 10px var(--log-item-shadow);
+  word-break: break-word; /* Prevent long strings from overflowing */
+}
+
+.log-section ul li button {
+  background: none;
+  border: none;
+  color: inherit; /* Inherit color from parent li */
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.log-section ul li button:hover {
+  opacity: 1;
+  color: var(--brand-color);
+}
+
+/* Custom Scrollbar for Webkit browsers */
+.log-section ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log-section ul::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.log-section ul::-webkit-scrollbar-thumb {
+  background: var(--brand-color);
+  border-radius: 10px;
+}
+body.light-mode .log-section ul::-webkit-scrollbar-thumb {
+  background: var(--button-primary-bg); /* Match light mode button color */
+}
+
+
+/* ==== About ==== */
+.about-section {
+  text-align: center;
+  background: var(--about-section-bg);
+}
+
+/* ==== Footer ==== */
+#site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.875rem;
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+#site-footer a {
+  color: var(--footer-link-color);
+  text-decoration: none;
+  transition: text-decoration 0.3s ease;
+}
+
+#site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ==== Toast ==== */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  padding: 14px 24px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Generic shadow for toast */
+  font-weight: 600;
+  display: flex; /* Always flex, just use 'hidden' attribute to hide */
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateX(100%) translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* Specific Toast Styles */
+.toast.info {
+    background: var(--toast-info-bg);
+}
+
+.toast.success {
+    background: var(--toast-success-bg);
+}
+
+.toast.error {
+    background: var(--toast-error-bg);
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .nav-list {
+    flex-wrap: wrap; /* Allow navigation items to wrap */
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .hero-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .controller-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Reduce gap for smaller screens */
+  }
+
+  .dpad, .action-buttons {
+    padding: 15px; /* Slightly less padding */
+    gap: 10px; /* Smaller gap for buttons */
+  }
+
+  .dpad-button, .action-btn {
+    width: 56px; /* Slightly smaller buttons */
+    height: 56px;
+    font-size: 1rem;
+  }
+  .dpad {
+    grid-template-columns: 56px 56px 56px;
+    grid-template-rows: 56px 56px 56px;
+  }
+  .action-buttons {
+    grid-template-columns: repeat(2, 64px); /* Smaller action buttons */
+    grid-template-rows: repeat(2, 64px);
+  }
+
+  .toast {
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    width: auto; /* Full width on small screens */
+    text-align: center;
+    justify-content: center;
+  }
+}
